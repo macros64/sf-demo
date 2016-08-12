@@ -1,0 +1,44 @@
+<project name="Sample usage of Salesforce Ant tasks" default="deploy05" basedir="." xmlns:sf="antlib:com.salesforce">
+	<taskdef resource="com/salesforce/antlib.xml" uri="antlib:com.salesforce">
+        <classpath>
+            <pathelement location="lib/ant-salesforce.jar" />
+        </classpath>
+    </taskdef>
+    <property file="build.properties"/>
+    <property environment="env"/>
+	
+	
+	<presetdef name="deploy-only">
+		<sf:deploy
+			deployRoot="src" checkOnly="false" rollbackOnError="true"
+			pollWaitMillis="20000" maxPoll="300"
+			trace="false" logType="None" />
+	</presetdef>
+	
+	<presetdef name="tests-only">
+		<deploy-only testLevel="RunLocalTests" />
+	</presetdef>
+	
+	<macrodef name="deploy-test">
+		<attribute name="username"/>
+		<attribute name="password"/>
+		<attribute name="serverurl"/>
+		<sequential>
+			<deploy-only username="@{username}" password="@{password}" serverurl="@{serverurl}" />
+			<tests-only username="@{username}" password="@{password}" serverurl="@{serverurl}" />
+		</sequential>
+	</macrodef>
+	
+	<target name="retrieve-int">
+		<sf:retrieve username="${sf.login.int}" password="${sf.password.int}" serverurl="${sf.url.production}" retrieveTarget="src" unpackaged="src\package.xml" />
+	</target>
+	
+	<target name="build-only-int">
+		<deploy-only username="${sf.login.int}" password="${sf.password.int}" serverurl="${sf.url.production}" />
+	</target>
+	
+	<target name="tests-only-int">
+		<tests-only username="${sf.login.int}" password="${sf.password.int}" serverurl="${sf.url.production}" />
+	</target>
+	
+</project>
