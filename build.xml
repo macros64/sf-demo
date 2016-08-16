@@ -34,13 +34,6 @@
 	</macrodef>
 	
 	<!-- actual targets -->
-	<target name="exec-anon-test">
-		<executeApex username="${sf.login.int}" password="${sf.password.int}" serverurl="${sf.url.production}">
-			Version__c v = Version__c.getOrgDefaults();
-			v.VersionNumber__c = '${release_version}';
-			update v;
-		</executeApex>
-	</target>
 	<target name="retrieve-int">
 		<sf:retrieve username="${sf.login.int}" password="${sf.password.int}" serverurl="${sf.url.production}" retrieveTarget="src" unpackaged="src\package.xml" />
 	</target>
@@ -51,6 +44,15 @@
 	
 	<target name="tests-only-int">
 		<tests-only username="${sf.login.int}" password="${sf.password.int}" serverurl="${sf.url.production}" />
+	</target>
+	
+	<target name="set-version-int">
+		<echo>Setting SF version to ${release_version}</echo>
+		<executeApex username="${sf.login.int}" password="${sf.password.int}" serverurl="${sf.url.production}">
+			Version__c v = Version__c.getOrgDefaults();
+			v.VersionNumber__c = '${release_version}';
+			update v;
+		</executeApex>
 	</target>
 	
 </project>
