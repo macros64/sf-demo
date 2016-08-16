@@ -1,13 +1,17 @@
-<project name="Sample usage of Salesforce Ant tasks" default="deploy05" basedir="." xmlns:sf="antlib:com.salesforce">
+<project name="EDM Demo" default="retrieve-int" basedir="." xmlns:sf="antlib:com.salesforce">
 	<taskdef resource="com/salesforce/antlib.xml" uri="antlib:com.salesforce">
         <classpath>
             <pathelement location="lib/ant-salesforce.jar" />
         </classpath>
     </taskdef>
+	
+	<import file="${basedir}/lib/exec_anon.xml"/>
+	
+	
     <property file="build.properties"/>
     <property environment="env"/>
 	
-	
+	<!-- Presets & macros -->
 	<presetdef name="deploy-only">
 		<sf:deploy
 			deployRoot="src" checkOnly="false" rollbackOnError="true"
@@ -29,6 +33,14 @@
 		</sequential>
 	</macrodef>
 	
+	<!-- actual targets -->
+	<target name="exec-anon-test">
+		<executeApex username="${sf.login.int}" password="${sf.password.int}" serverurl="${sf.url.production}">
+			Version__c v = Version__c.getOrgDefaults();
+			v.VersionNumber__c = '${release_version}';
+			update v;
+		</executeApex>
+	</target>
 	<target name="retrieve-int">
 		<sf:retrieve username="${sf.login.int}" password="${sf.password.int}" serverurl="${sf.url.production}" retrieveTarget="src" unpackaged="src\package.xml" />
 	</target>
