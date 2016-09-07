@@ -55,4 +55,22 @@
 		</executeApex>
 	</target>
 	
+	
+	<target name="build-only-qa">
+		<deploy-only username="${sf.login.qa}" password="${sf.password.qa}" serverurl="${sf.url.production}" />
+	</target>
+	
+	<target name="tests-only-qa">
+		<tests-only username="${sf.login.qa}" password="${sf.password.qa}" serverurl="${sf.url.production}" />
+	</target>
+	
+	<target name="set-version-qa">
+		<echo>Setting SF version to ${release_version}</echo>
+		<executeApex username="${sf.login.qa}" password="${sf.password.qa}" serverurl="${sf.url.production}">
+			Version__c v = Version__c.getOrgDefaults();
+			v.VersionNumber__c = '${release_version}';
+			update v;
+		</executeApex>
+	</target>
+	
 </project>
