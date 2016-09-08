@@ -4,7 +4,7 @@ global class AriaTypes {
         public integer error_code;
         public string error_message;
 		
-		public void age;
+		public integer age;
     }
     
     public class accountDetails {
