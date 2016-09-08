@@ -1,7 +1,7 @@
 global class AriaTypes {
     
     public abstract class GenericResponse {
-        public integer error_code;
+        public integer error_code {get;set;}
         public string error_message;
     }
     
