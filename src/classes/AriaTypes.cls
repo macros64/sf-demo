@@ -1,8 +1,10 @@
 global class AriaTypes {
     
     public abstract class GenericResponse {
-        public integer error_code {get;set;}
+        public integer error_code;
         public string error_message;
+		
+		puslic void age;
     }
     
     public class accountDetails {
