@@ -11,6 +11,7 @@
 			<pathelement location="lib/commons-lang3-3.4.jar" />
 			<pathelement location="lib/commons-io-2.4.jar" />
 			<pathelement location="lib/jaxen-1.1.6.jar" />
+			<pathelement location="lib/pmd-apex-5.5.1-apex-jorje-shaded.jar" />
         </classpath>
 	</taskdef>
 	<import file="${basedir}/lib/exec_anon.xml"/>
