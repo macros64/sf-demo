@@ -4,7 +4,11 @@
             <pathelement location="lib/ant-salesforce.jar" />
         </classpath>
     </taskdef>
-	
+	<taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask">
+		<classpath>
+            <pathelement location="lib/pmd-core.jar" />
+        </classpath>
+	</taskdef>
 	<import file="${basedir}/lib/exec_anon.xml"/>
 	
 	
@@ -32,6 +36,18 @@
 			<tests-only username="@{username}" password="@{password}" serverurl="@{serverurl}" />
 		</sequential>
 	</macrodef>
+	
+	<presetdef name="code-analisys">
+		<pmd shortFilenames="true">
+			<ruleset>rulesets/apex/performance.xml</ruleset>
+			<ruleset>rulesets/apex/complexity.xml</ruleset>
+			<ruleset>rulesets/apex/style.xml</ruleset>
+			<formatter type="xml" toFile="validation-errors.xml" toConsole="true"/>
+			<fileset dir="src/classes/">
+				<include name="**/*.cls"/>
+			</fileset>
+		</pmd>
+	</presetdef>
 	
 	<!-- actual targets -->
 	<target name="retrieve-int">
