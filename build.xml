@@ -9,7 +9,11 @@
             <pathelement location="lib/pmd-core-5.5.1.jar" />
         </classpath>
 	</taskdef>
-	<taskdef uri="antlib:org.apache.commons.lang3" classpath="lib/commons-lang3-3.4.jar"	/>
+	<javac>   
+		<classpath>
+			<pathelement path="lib/commons-lang3-3.4.jar"/>
+		</classpath>
+	</javac>
 	<import file="${basedir}/lib/exec_anon.xml"/>
 	
 	
