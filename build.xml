@@ -7,9 +7,9 @@
 	<taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask">
 		<classpath>
             <pathelement location="lib/pmd-core-5.5.1.jar" />
+			<pathelement location="lib/commons-lang3-3.4.jar" />
         </classpath>
 	</taskdef>
-	<classpath path="lib/commons-lang3-3.4.jar"/>
 	<import file="${basedir}/lib/exec_anon.xml"/>
 	
 	
